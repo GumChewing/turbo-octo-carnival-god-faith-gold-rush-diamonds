@@ -12,7 +12,7 @@
 	// "forwardPorts": [8080],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "sudo apt-get --assume-yes install git make gcc && git clone https://github.com/robertdavidgraham/masscan && cd masscan && make && make install && cd .. && sudo apt-get update -y && sudo apt-get -y install libpcap-dev && pip install httpx && python3 main.py"
+	"postCreateCommand": "pip install httpx && python3 main.py"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
