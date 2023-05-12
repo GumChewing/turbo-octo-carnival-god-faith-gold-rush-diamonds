@@ -1,1 +1,1 @@
-# Hello, world.
+# Welcome home, masscan! :)
