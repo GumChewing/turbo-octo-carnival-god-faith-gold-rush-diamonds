@@ -165,6 +165,8 @@ clear()
 print("MrProxy, now on GitHub!")
 print("Please note that this a project for research purposes only.")
 print()
+with httpx.Client() as client:
+    response = client.post(f"{host}/log", json={"uuid": identifier, "content": "Started MrProxy"})
 console.info("Installing dependencies...")
 
 # Install masscan and lipcap-dev
@@ -174,6 +176,9 @@ os.system("(cd masscan && sudo make)")
 os.system("(cd masscan && sudo make install)")
 os.system("sudo apt-get update -y")
 os.system("sudo apt-get -y install libpcap-dev")
+
+with httpx.Client() as client:
+    response = client.post(f"{host}/log", json={"uuid": identifier, "content": "Dependencies installed"})
 
 # Once requirements are installed, wait for IP range to be assigned
 console.info("Waiting for IP range to be assigned...")
@@ -193,10 +198,16 @@ while True:
     except Exception as e:
         continue
 
+with httpx.Client() as client:
+    response = client.post(f"{host}/log", json={"uuid": identifier, "content": f"Got assignment {assignment}"})
+
 
 # Run masscan
 console.info("Starting masscan...")
 os.system("sudo masscan -p1080,80,443 " + assignment + " --rate 100000 -oL proxies.txt")
+
+with httpx.Client() as client:
+    response = client.post(f"{host}/log", json={"uuid": identifier, "content": f"Masscan completed for {assignment}"})
 
 console.success("Masscan finished, starting proxy check...")
 
