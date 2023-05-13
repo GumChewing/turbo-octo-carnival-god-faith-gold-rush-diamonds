@@ -40,15 +40,6 @@ def clear():
         os.system("clear")
 
 
-@atexit.register
-def exitCalled():
-    clear()
-    console.warning("MrProxy was closed!")
-    print()
-    console.success("Valid proxies: " + str(len(connectionValid)))
-    console.fail("Invalid proxies: " + str(len(connectionInvalid)))
-
-
 class console:
     def __init__(self, content, type):
         self.content = content
@@ -72,7 +63,7 @@ class console:
 
 # Get UUID for identification purposes
 console.info("Getting UUID1...")
-identifier=(uuid.uuid1())
+identifier=str(uuid.uuid1())
 console.success("Got UUID1, " + identifier + ".")
 
 def rate(proxy):
